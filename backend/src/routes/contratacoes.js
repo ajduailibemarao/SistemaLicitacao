@@ -7,18 +7,18 @@ const db = require('../database/database');
 router.get('/', async (req, res) => {
   try {
     const result = await db.query(`
-      SELECT c.*, 
-             lic.razao_social as licitante_nome, 
-             m.nome as modalidade_nome,
-             t.nome as tipo_nome,
-             s.nome as setor_nome,
-             d.nome as diretoria_nome
-      FROM contratacoes_diretas c
-      LEFT JOIN licitantes lic ON c.licitante_id = lic.id
-      LEFT JOIN modalidades m ON c.modalidade_id = m.id
-      LEFT JOIN tipos_licitacao t ON c.tipo_id = t.id
-      LEFT JOIN setores s ON c.setor_id = s.id
-      LEFT JOIN diretorias d ON c.diretoria_id = d.id
+      SELECT c.*,  
+      lic.razao_social as licitante_nome,  
+      m.nome as modalidade_nome, 
+      t.nome as tipo_nome, 
+      s.nome as setor_nome, 
+      d.nome as diretoria_nome 
+      FROM contratacoes_diretas c 
+      LEFT JOIN licitantes lic ON c.licitante_id = lic.id 
+      LEFT JOIN modalidades m ON c.modalidade_id = m.id 
+      LEFT JOIN tipos_licitacao t ON c.tipo_id = t.id 
+      LEFT JOIN setores s ON c.setor_id = s.id 
+      LEFT JOIN diretorias d ON c.diretoria_id = d.id 
       ORDER BY c.data_entrada DESC
     `);
     
@@ -35,18 +35,18 @@ router.get('/:id', async (req, res) => {
   
   try {
     const result = await db.query(`
-      SELECT c.*, 
-             lic.razao_social as licitante_nome, 
-             m.nome as modalidade_nome,
-             t.nome as tipo_nome,
-             s.nome as setor_nome,
-             d.nome as diretoria_nome
-      FROM contratacoes_diretas c
-      LEFT JOIN licitantes lic ON c.licitante_id = lic.id
-      LEFT JOIN modalidades m ON c.modalidade_id = m.id
-      LEFT JOIN tipos_licitacao t ON c.tipo_id = t.id
-      LEFT JOIN setores s ON c.setor_id = s.id
-      LEFT JOIN diretorias d ON c.diretoria_id = d.id
+      SELECT c.*,  
+      lic.razao_social as licitante_nome,  
+      m.nome as modalidade_nome, 
+      t.nome as tipo_nome, 
+      s.nome as setor_nome, 
+      d.nome as diretoria_nome 
+      FROM contratacoes_diretas c 
+      LEFT JOIN licitantes lic ON c.licitante_id = lic.id 
+      LEFT JOIN modalidades m ON c.modalidade_id = m.id 
+      LEFT JOIN tipos_licitacao t ON c.tipo_id = t.id 
+      LEFT JOIN setores s ON c.setor_id = s.id 
+      LEFT JOIN diretorias d ON c.diretoria_id = d.id 
       WHERE c.id = $1
     `, [id]);
     
@@ -83,10 +83,8 @@ router.post('/', async (req, res) => {
         licitante_id, modalidade_id, numero_parecer, tipo_id, objeto,
         setor_id, diretoria_id, processo, relator, valor_estimado,
         valor_adjudicado, data_adjudicacao, prazo_execucao, status, motivo
-      ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
-        $14, $15, $16, $17, $18, $19
-      ) RETURNING id
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)
+      RETURNING id
     `, [
       identificacaoDispensa, dataEntrada, dataCotacao, horarioCotacao,
       licitanteId, modalidadeId, numeroParecer, tipoId, objeto,
@@ -126,25 +124,12 @@ router.put('/:id', async (req, res) => {
     
     const result = await db.query(`
       UPDATE contratacoes_diretas SET
-        identificacao_dispensa = $1,
-        data_entrada = $2,
-        data_cotacao = $3,
-        horario_cotacao = $4,
-        licitante_id = $5,
-        modalidade_id = $6,
-        numero_parecer = $7,
-        tipo_id = $8,
-        objeto = $9,
-        setor_id = $10,
-        diretoria_id = $11,
-        processo = $12,
-        relator = $13,
-        valor_estimado = $14,
-        valor_adjudicado = $15,
-        data_adjudicacao = $16,
-        prazo_execucao = $17,
-        status = $18,
-        motivo = $19
+        identificacao_dispensa = $1, data_entrada = $2, data_cotacao = $3, 
+        horario_cotacao = $4, licitante_id = $5, modalidade_id = $6, 
+        numero_parecer = $7, tipo_id = $8, objeto = $9, setor_id = $10, 
+        diretoria_id = $11, processo = $12, relator = $13, valor_estimado = $14, 
+        valor_adjudicado = $15, data_adjudicacao = $16, prazo_execucao = $17, 
+        status = $18, motivo = $19
       WHERE id = $20
       RETURNING id
     `, [
