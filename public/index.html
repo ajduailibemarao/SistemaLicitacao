@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <!-- Outras tags head... -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="css/style.css">
+      </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Controle de Licitações</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Sistema de Controle de Licitações</h1>
+      <nav>
+        <ul>
+          <li><a href="#" class="active" data-page="licitantes-page">Licitantes</a></li>
+          <li><a href="#" data-page="licitacoes-page">Licitações</a></li>
+          <li><a href="#" data-page="contratacoes-page">Contratações Diretas</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Página de Licitantes -->
+      <div id="licitantes-page" class="page active">
+        <div class="page-header">
+          <h2>Gerenciamento de Licitantes</h2>
+          <button id="btn-novo-licitante" class="btn btn-primary">Novo Licitante</button>
+        </div>
+
+        <div id="licitante-form" class="form-container" style="display: none;">
+          <h3>Cadastro de Licitante</h3>
+          <form id="form-licitante">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="razaoSocial">Razão Social:</label>
+                <input type="text" id="razaoSocial" name="razaoSocial" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" id="cnpj" name="cnpj" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="telefone">Telefone:</label>
+                <input type="text" id="telefone" name="telefone">
+              </div>
+              
+              <div class="form-group">
+                <label for="telefone2">Telefone 2:</label>
+                <input type="text" id="telefone2" name="telefone2">
+              </div>
+              
+              <div class="form-group">
+                <label for="celular">Celular:</label>
+                <input type="text" id="celular" name="celular">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email">
+            </div>
+            
+            <div class="form-group">
+              <label for="endereco">Endereço:</label>
+              <input type="text" id="endereco" name="endereco">
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="cidade">Cidade:</label>
+                <input type="text" id="cidade" name="cidade">
+              </div>
+              
+              <div class="form-group">
+                <label for="estado">Estado:</label>
+                <select id="estado" name="estado">
+                  <option value="">Selecione</option>
+                  <option value="AC">AC</option>
+                  <option value="AL">AL</option>
+                  <option value="AP">AP</option>
+                  <option value="AM">AM</option>
+                  <option value="BA">BA</option>
+                  <option value="CE">CE</option>
+                  <option value="DF">DF</option>
+                  <option value="ES">ES</option>
+                  <option value="GO">GO</option>
+                  <option value="MA">MA</option>
+                  <option value="MT">MT</option>
+                  <option value="MS">MS</option>
+                  <option value="MG">MG</option>
+                  <option value="PA">PA</option>
+                  <option value="PB">PB</option>
+                  <option value="PR">PR</option>
+                  <option value="PE">PE</option>
+                  <option value="PI">PI</option>
+                  <option value="RJ">RJ</option>
+                  <option value="RN">RN</option>
+                  <option value="RS">RS</option>
+                  <option value="RO">RO</option>
+                  <option value="RR">RR</option>
+                  <option value="SC">SC</option>
+                  <option value="SP">SP</option>
+                  <option value="SE">SE</option>
+                  <option value="TO">TO</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="socios-section">
+              <h4>Sócios</h4>
+              <div id="socios-container">
+                <!-- Sócios serão adicionados aqui dinamicamente -->
+                <div class="socio-item">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Nome do Sócio 1:</label>
+                      <input type="text" class="socio-nome">
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>CPF do Sócio 1:</label>
+                      <input type="text" class="socio-cpf">
+                    </div>
+                    
+                    <button type="button" class="btn btn-remove-socio" disabled>X</button>
+                  </div>
+                </div>
+              </div>
+              
+              <button type="button" id="btn-add-socio" class="btn btn-secondary">Adicionar Sócio</button>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="btn btn-success">Salvar</button>
+              <button type="button" id="btn-cancelar" class="btn btn-danger">Cancelar</button>
+            </div>
+          </form>
+        </div>
+        
+        <div id="licitantes-list" class="list-container">
+          <div class="search-bar">
+            <input type="text" id="search-licitante" placeholder="Buscar por razão social ou CNPJ...">
+          </div>
+          
+          <div id="licitantes-table-container">
+            <table id="licitantes-table">
+              <thead>
+                <tr>
+                  <th>Razão Social</th>
+                  <th>CNPJ</th>
+                  <th>Telefone</th>
+                  <th>Email</th>
+                  <th>Cidade/Estado</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="licitantes-table-body">
+                <!-- Dados serão carregados aqui -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Outras páginas serão adicionadas aqui -->
+      <div id="licitacoes-page" class="page">
+        <h2>Licitações</h2>
+        <p>Conteúdo em desenvolvimento...</p>
+        <section id="licitacoes" class="page">
+            <div class="page-header">
+              <h2>Licitações</h2>
+              <button id="btn-nova-licitacao" class="btn btn-primary">Nova Licitação</button>
+            </div>
+            
+            <!-- Adicione o componente de exportação aqui -->
+            <div class="exportacao-container">
+              <h3>Exportar Licitações</h3>
+              <div class="export-buttons">
+                <button id="btn-exportar-excel" class="btn btn-primary">
+                  <i class="fas fa-file-excel"></i> Exportar para Excel
+                </button>
+                <button id="btn-exportar-pdf" class="btn btn-primary">
+                  <i class="fas fa-file-pdf"></i> Exportar para PDF
+                </button>
+                <button id="btn-exportar-word" class="btn btn-primary">
+                  <i class="fas fa-file-word"></i> Exportar para Word
+                </button>
+              </div>
+            </div>
+            
+            <!-- Resto do conteúdo da página de licitações -->
+            <!-- ... -->
+          </section>
+      </div>
+      
+      <div id="contratacoes-page" class="page">
+        <h2>Contratações Diretas</h2>
+        <p>Conteúdo em desenvolvimento...</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
